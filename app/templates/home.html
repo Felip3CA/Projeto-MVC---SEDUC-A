@@ -1,14 +1,15 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-</head>
-<body>
-    <h1>Olá, {{ usuario.nome }}</h1>
-    <p>Perfil: {{ usuario.role }}</p>
+{% extends "base.html" %}
 
-    <a href="/auth/logout">Sair</a>
-</body>
-</html>
+{% block title %}Painel{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1 class="page-title">Olá, {{ usuario.nome }}</h1>
+    <p>Perfil: <strong>{{ usuario.role | capitalize }}</strong></p>
+
+    <div class="actions">
+        <a class="button" href="/usuarios">Gerenciar usuários</a>
+        <a class="button secondary" href="/auth/logout">Sair</a>
+    </div>
+</div>
+{% endblock %}

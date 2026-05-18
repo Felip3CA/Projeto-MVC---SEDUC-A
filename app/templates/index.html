@@ -1,16 +1,15 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bem-vindo - AAPM</title>
-</head>
-<body>
-    <h1>Sistema de estoque</h1>
-    <p>Faça login para acessar o sistema.</p>
-    <br>
+{% extends "base.html" %}
 
-    <a href="/auth/login">Entrar</a>
-    <a href="/auth/cadastro">Criar conta</a>
-</body>
-</html>
+{% block title %}Bem-vindo - AAPM{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1 class="page-title">Bem-vindo ao sistema</h1>
+    <p>Faça login para acessar o painel de administração e gerenciar usuários.</p>
+
+    <div class="actions">
+        <a class="button" href="/auth/login">Entrar</a>
+        <a class="button secondary" href="/auth/cadastro">Criar conta</a>
+    </div>
+</div>
+{% endblock %}

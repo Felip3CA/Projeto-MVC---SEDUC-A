@@ -1,0 +1,245 @@
+:root {
+    --bg: #f5f7fb;
+    --surface: #ffffff;
+    --primary: #2a6f97;
+    --primary-dark: #1f5673;
+    --accent: #f17e7e;
+    --text: #1f2937;
+    --muted: #64748b;
+    --border: #d2dce6;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Inter, system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+.container {
+    width: min(1100px, calc(100% - 2rem));
+    margin: 0 auto;
+}
+
+.site-header {
+    background: linear-gradient(135deg, var(--primary), #4b8ab4);
+    color: white;
+    padding: 1rem 0;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.brand {
+    color: white;
+    font-size: 1.35rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.subtitle {
+    margin: 0.3rem 0 0;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+}
+
+.top-nav {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.top-nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.page-content {
+    padding: 2rem 0 4rem;
+}
+
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 1.75rem;
+    box-shadow: 0 15px 40px rgba(15, 23, 42, 0.06);
+}
+
+.page-title {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: clamp(1.8rem, 2.4vw, 2.4rem);
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.button,
+button,
+input[type="submit"] {
+    border: none;
+    background: var(--primary);
+    color: white;
+    padding: 0.9rem 1.2rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+button:hover,
+.button:hover,
+input[type="submit"]:hover {
+    transform: translateY(-1px);
+    background: var(--primary-dark);
+}
+
+.button.secondary,
+button.secondary {
+    background: #64748b;
+}
+
+.button.danger,
+button.danger {
+    background: var(--accent);
+}
+
+.alert {
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    margin-bottom: 1.25rem;
+    border: 1px solid transparent;
+}
+
+.alert.success {
+    background: #e6f6ff;
+    border-color: #a5d8ff;
+    color: #0f4d7a;
+}
+
+.alert.error {
+    background: #ffe7e7;
+    border-color: #f3c0c0;
+    color: #8f1d1d;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    min-width: 640px;
+}
+
+th,
+td {
+    padding: 1rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+th {
+    background: #f8fafc;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 0.9rem;
+}
+
+tbody tr:hover {
+    background: #f7fbff;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    border-radius: 999px;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.status-badge.active {
+    background: #e8f8f1;
+    color: #166534;
+}
+
+.status-badge.inactive {
+    background: #fff1f2;
+    color: #9f1239;
+}
+
+.form-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.4rem;
+    color: var(--muted);
+    font-weight: 600;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select,
+textarea {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: #f9fafb;
+    color: var(--text);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(42, 111, 151, 0.12);
+}
+
+.form-footnote {
+    font-size: 0.95rem;
+    color: var(--muted);
+}
+
+.page-footer {
+    text-align: center;
+    color: var(--muted);
+    margin: 3rem 0 1.5rem;
+}
+
+.small-link {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.small-link:hover {
+    text-decoration: underline;
+}

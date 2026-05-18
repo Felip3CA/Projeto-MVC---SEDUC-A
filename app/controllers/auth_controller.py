@@ -101,7 +101,7 @@ def fazer_login(
     token_data = {
         "sub": usuario.email,
         "nome": usuario.nome,
-        "role": usuario.role,
+        "role": usuario.role, #Perfil do usuario (admin, professor, aluno)
         "id": usuario.id,
     }
 

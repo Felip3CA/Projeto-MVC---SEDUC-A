@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Usuários — Estoque{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="actions">
+        <div>
+            <h1 class="page-title">Usuários</h1>
+            {% if request.query_params.get('criado') == 'ok' %}
+                <div class="alert success">Usuário criado com sucesso!</div>
+            {% endif %}
+            {% if request.query_params.get('editado') == 'ok' %}
+                <div class="alert success">Usuário atualizado com sucesso!</div>
+            {% endif %}
+            {% if request.query_params.get('status') == 'ativado' %}
+                <div class="alert success">Usuário ativado com sucesso!</div>
+            {% endif %}
+            {% if request.query_params.get('status') == 'desativado' %}
+                <div class="alert success">Usuário desativado com sucesso!</div>
+            {% endif %}
+            {% if request.query_params.get('erro') == 'autoproprio' %}
+                <div class="alert error">Você não pode desativar sua própria conta.</div>
+            {% endif %}
+        </div>
+        <a class="button" href="/usuarios/novo">+ Novo usuário</a>
+    </div>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Perfil</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in usuarios %}
+                <tr>
+                    <td>{{ u.nome }}</td>
+                    <td>{{ u.email }}</td>
+                    <td>{{ u.role | capitalize }}</td>
+                    <td>
+                        <span class="status-badge {{ 'active' if u.ativo else 'inactive' }}">
+                            {{ "Ativo" if u.ativo else "Inativo" }}
+                        </span>
+                    </td>
+                    <td>
+                        <a class="button secondary" href="/usuarios/{{ u.id }}/editar">Editar</a>
+                        <form action="/usuarios/{{ u.id }}/{{ 'desativar' if u.ativo else 'ativar' }}" method="post" style="display:inline; margin-left: 0.5rem;">
+                            <button class="button {{ 'danger' if u.ativo else 'secondary' }}" type="submit">
+                                {{ "Desativar" if u.ativo else "Ativar" }}
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <p><a class="small-link" href="/">← Voltar ao painel</a></p>
+</div>
+{% endblock %}

@@ -1,33 +1,31 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
-<body>
-    <h1>Entrar no sistema</h1>
+{% extends "base.html" %}
 
+{% block title %}Login{% endblock %}
 
-
-    <form action="/auth/login" method="post">
-
-        <!-- Exibe confirmação após cadastro feito -->
-         {% if request.query_params.get("cadastro") == "ok" %}
-            <p style="color: green;">Cadastro realizado! Faça login</p>
+{% block content %}
+<div class="card">
+    <h1 class="page-title">Entrar no sistema</h1>
+    <form action="/auth/login" method="post" class="form-grid">
+        {% if request.query_params.get("cadastro") == "ok" %}
+            <div class="alert success">Cadastro realizado! Faça login.</div>
         {% endif %}
 
-        E-mail: <input type="email" name="email" required>
-        <br><br>
-        Senha: <input type="password" name="senha">
-        <br><br>
+        <div>
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div>
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" name="senha" required>
+        </div>
+
         {% if erro %}
-            <p style="color: red;">{{ erro }}</p>
+            <div class="alert error">{{ erro }}</div>
         {% endif %}
+
         <button type="submit">Entrar</button>
     </form>
-    
-    <p>Não tem conta? <a href="/auth/cadastro">Cadastre-se</a></p>
 
-</body>
-</html>
+    <p class="form-footnote">Não tem conta? <a class="small-link" href="/auth/cadastro">Cadastre-se</a></p>
+</div>
+{% endblock %}
