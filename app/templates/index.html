@@ -1,15 +1,23 @@
 {% extends "base.html" %}
 
-{% block title %}Bem-vindo - AAPM{% endblock %}
+{% block title %}SEDUC Estoque{% endblock %}
 
 {% block content %}
 <div class="card">
-    <h1 class="page-title">Bem-vindo ao sistema</h1>
-    <p>Faça login para acessar o painel de administração e gerenciar usuários.</p>
+    <div style="text-align: center; padding: 2rem;">
+        <h1 class="page-title" style="margin-bottom: 1rem;">Bem-vindo ao SEDUC Estoque</h1>
+        <p style="font-size: 1.1rem; color: var(--muted); margin-bottom: 2rem;">
+            Gerencie seu estoque, produtos e categorias de forma simples e eficiente.
+        </p>
+    </div>
 
-    <div class="actions">
-        <a class="button" href="/auth/login">Entrar</a>
-        <a class="button secondary" href="/auth/cadastro">Criar conta</a>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+        <a class="button" href="/auth/login" style="text-align: center; display: flex; align-items: center; justify-content: center; min-height: 80px;">
+            Entrar no sistema
+        </a>
+        <a class="button secondary" href="/auth/cadastro" style="text-align: center; display: flex; align-items: center; justify-content: center; min-height: 80px;">
+            Criar conta
+        </a>
     </div>
 </div>
 {% endblock %}

@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Produtos — Estoque{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="section-header">
+        <div>
+            <h1 class="page-title">Produtos</h1>
+            {% if request.query_params.get('criado') == 'ok' %}
+                <div class="alert success">Produto criado com sucesso!</div>
+            {% endif %}
+            {% if request.query_params.get('desativado') == 'ok' %}
+                <div class="alert success">Produto desativado com sucesso.</div>
+            {% endif %}
+        </div>
+        {% if usuario.role == 'admin' %}
+            <a class="button" href="/produtos/novo">+ Novo produto</a>
+        {% endif %}
+    </div>
+
+    <div class="filter-panel">
+        <form method="get" action="/produtos">
+            <input type="text" name="busca" placeholder="Buscar por nome..." value="{{ busca }}">
+
+            <select name="categoria_id">
+                <option value="0">Todas as categorias</option>
+                {% for c in categorias %}
+                    <option value="{{ c.id }}" {{ 'selected' if categoria_id == c.id else '' }}>
+                        {{ c.nome }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <div class="actions" style="justify-content:flex-start; gap:0.75rem; margin:0;">
+                <button type="submit">Filtrar</button>
+                {% if busca or categoria_id %}
+                    <a class="button secondary" href="/produtos">Limpar</a>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Imagem</th>
+                    <th>Nome</th>
+                    <th>Categoria</th>
+                    <th>Preço</th>
+                    <th>Estoque</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in produtos %}
+                <tr>
+                    <td>
+                        <img class="product-thumb" src="{{ p.imagem_url }}" alt="{{ p.nome }}">
+                    </td>
+                    <td><a class="small-link" href="/produtos/{{ p.id }}">{{ p.nome }}</a></td>
+                    <td>{{ p.categoria.nome if p.categoria else "—" }}</td>
+                    <td>R$ {{ "%.2f"|format(p.preco) }}</td>
+                    <td>{{ p.estoque_atual }}</td>
+                    <td>
+                        {% if usuario.role == 'admin' %}
+                            <a class="button secondary" href="/produtos/{{ p.id }}/editar">Editar</a>
+                            <form action="/produtos/{{ p.id }}/desativar" method="post" style="display:inline" onsubmit="return confirm('Desativar {{ p.nome }}?')">
+                                <button class="button danger" type="submit">Desativar</button>
+                            </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+                {% if not produtos %}
+                <tr>
+                    <td colspan="6" style="text-align:center; color: var(--muted);">
+                        Nenhum produto encontrado.
+                    </td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    <p class="footer-note"><a class="small-link" href="/">← Voltar ao painel</a></p>
+</div>
+{% endblock %}

@@ -4,11 +4,31 @@
 
 {% block content %}
 <div class="card">
-    <h1 class="page-title">Olá, {{ usuario.nome }}</h1>
-    <p>Perfil: <strong>{{ usuario.role | capitalize }}</strong></p>
+    <div class="section-header">
+        <div>
+            <h1 class="page-title">Bem-vindo, {{ usuario.nome }}!</h1>
+            <p class="form-footnote">Perfil: <strong>{{ usuario.role | capitalize }}</strong></p>
+        </div>
+    </div>
 
-    <div class="actions">
-        <a class="button" href="/usuarios">Gerenciar usuários</a>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem;">
+        <div class="card" style="text-align: center; padding: 2rem;">
+            <h3 style="margin-top: 0;">Produtos</h3>
+            <p style="font-size: 1.1rem;"><a class="small-link" href="/produtos">Ver todos os produtos</a></p>
+        </div>
+        <div class="card" style="text-align: center; padding: 2rem;">
+            <h3 style="margin-top: 0;">Categorias</h3>
+            <p style="font-size: 1.1rem;"><a class="small-link" href="/categorias">Gerenciar categorias</a></p>
+        </div>
+        {% if usuario.role == 'admin' %}
+        <div class="card" style="text-align: center; padding: 2rem;">
+            <h3 style="margin-top: 0;">Usuários</h3>
+            <p style="font-size: 1.1rem;"><a class="small-link" href="/usuarios">Gerenciar usuários</a></p>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="actions" style="margin-top: 2rem; justify-content: flex-end;">
         <a class="button secondary" href="/auth/logout">Sair</a>
     </div>
 </div>

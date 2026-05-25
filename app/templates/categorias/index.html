@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Categorias — Estoque{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="section-header">
+        <div>
+            <h1 class="page-title">Categorias</h1>
+            {% if request.query_params.get('criado') == 'ok' %}
+                <div class="alert success">Categoria criada com sucesso!</div>
+            {% endif %}
+            {% if request.query_params.get('editado') == 'ok' %}
+                <div class="alert success">Categoria atualizada com sucesso!</div>
+            {% endif %}
+            {% if request.query_params.get('erro') == 'produtos_vinculados' %}
+                <div class="alert error">
+                    Não é possível desativar "{{ request.query_params.get('categoria') }}" porque ela possui produtos ativos.
+                </div>
+            {% endif %}
+        </div>
+        <a class="button" href="/categorias/nova">+ Nova categoria</a>
+    </div>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Produtos ativos</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in categorias %}
+                <tr>
+                    <td>{{ c.nome }}</td>
+                    <td>{{ c.produtos | selectattr('ativo') | list | length }}</td>
+                    <td>
+                        <span class="status-badge {{ 'active' if c.ativo else 'inactive' }}">
+                            {{ "Ativa" if c.ativo else "Inativa" }}
+                        </span>
+                    </td>
+                    <td>
+                        <a class="button secondary" href="/categorias/{{ c.id }}/editar">Editar</a>
+                        <form action="/categorias/{{ c.id }}/toggle-ativo" method="post" style="display:inline;">
+                            <button class="button {{ 'danger' if c.ativo else 'secondary' }}" type="submit">
+                                {{ "Desativar" if c.ativo else "Ativar" }}
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% if not categorias %}
+                <tr>
+                    <td colspan="4" style="text-align:center; color: var(--muted);">
+                        Nenhuma categoria cadastrada.
+                    </td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    <p class="footer-note"><a class="small-link" href="/">← Voltar ao painel</a></p>
+</div>
+{% endblock %}

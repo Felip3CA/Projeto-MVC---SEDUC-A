@@ -26,9 +26,12 @@
                 <option value="admin" {% if editing_usuario.role == 'admin' %}selected{% endif %}>Admin</option>
             </select>
         </div>
-        <button type="submit">Salvar alterações</button>
+        <div class="actions" style="grid-column: 1 / -1; justify-content: flex-start;">
+            <button type="submit">Salvar alterações</button>
+            <a class="button secondary" href="/usuarios">Cancelar</a>
+        </div>
     </form>
 
-    <p class="form-footnote"><a class="small-link" href="/usuarios">← Voltar para lista de usuários</a></p>
+    <p class="footer-note"><a class="small-link" href="/usuarios">← Voltar para lista de usuários</a></p>
 </div>
 {% endblock %}

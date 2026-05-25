@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}{{ "Editar" if editando else "Nova" }} Categoria — Estoque{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1 class="page-title">{{ "Editar categoria" if editando else "Nova categoria" }}</h1>
+
+    {% if erro %}
+        <div class="alert error">{{ erro }}</div>
+    {% endif %}
+
+    <form action="{{ '/categorias/' + editando.id|string + '/editar' if editando else '/categorias/nova' }}" method="post" class="form-grid">
+        <div>
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" value="{{ editando.nome if editando else (valores.nome if valores else '') }}" required autofocus>
+        </div>
+
+        <div class="actions" style="justify-content:flex-start; gap:1rem; width:100%; margin-top: 0.5rem;">
+            <button type="submit">{{ "Salvar alterações" if editando else "Criar categoria" }}</button>
+            <a class="button secondary" href="/categorias">Cancelar</a>
+        </div>
+    </form>
+
+    {% if editando and editando.produtos %}
+        <div class="card" style="margin-top:2rem; padding:1.5rem; background:#f8fbff;">
+            <h2>Produtos ativos vinculados</h2>
+            <ul style="margin: 1rem 0 0; padding-left: 1.25rem; color: var(--text);">
+                {% for p in editando.produtos if p.ativo %}
+                    <li style="margin-bottom:0.55rem;">
+                        <a class="small-link" href="/produtos/{{ p.id }}">{{ p.nome }}</a> — R$ {{ "%.2f"|format(p.preco) }}
+                    </li>
+                {% else %}
+                    <li>Nenhum produto ativo vinculado.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <p class="footer-note"><a class="small-link" href="/categorias">← Voltar às categorias</a></p>
+</div>
+{% endblock %}
